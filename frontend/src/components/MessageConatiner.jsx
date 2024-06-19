@@ -1,8 +1,10 @@
 import React from 'react';
 import SendInput from './SendInput';
 import Messages from './Messages';
+import { useSelector } from 'react-redux';
 
 const MessageContainer = () => {
+    const {selectedUser}=useSelector(store=> store.user);
     return (
 
         <div className='md:min-w-[550px] flex flex-col'>
@@ -10,14 +12,14 @@ const MessageContainer = () => {
 
                 <div className="avatar online">
                     <div className='w-12 rounded-full'>
-                        <img src="https://static.vecteezy.com/system/resources/previews/014/212/681/original/female-user-profile-avatar-is-a-woman-a-character-for-a-screen-saver-with-emotions-for-website-and-mobile-app-design-illustration-on-a-white-isolated-background-vector.jpg" alt="user profile" />
+                        <img src={selectedUser?.profilePhoto} alt="user profile" />
                     </div>
                 </div>
 
 
                 <div className="">
                     <div className=' flex  gap-2 flex-1'>
-                        <p className='' >Shreya</p>
+                        <p className='' >{selectedUser?.fullName}</p>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 const Message = ({message}) => {
     const scroll=useRef();
     const {authUser,selectedUser} =useSelector(store=>store.user);
-
+    const date = new Date();
+    const showTime = date.getHours() 
+        + ':' + date.getMinutes() 
     useEffect(()=>{
 
         scroll.current?.scrollIntoView({behavior:"smooth"})
@@ -18,9 +20,9 @@ const Message = ({message}) => {
             </div>
             <div className="chat-header">
                
-                <time className="text-xs opacity-50 text-white">12:45</time>
+                <time className="text-xs opacity-50 text-white">{showTime}</time>
             </div>
-            <div className="chat-bubble">{message?.message}</div>
+            <div className="chat-bubble ">{message?.message}</div>
             
         </div>
     )

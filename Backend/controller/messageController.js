@@ -1,6 +1,8 @@
+import { isObjectIdOrHexString } from "mongoose";
 import { Conversation } from "../models/conversationModel.js";
 import { Message } from "../models/messageModel.js";
 
+import { getReceiverSocketId,io } from "../socket/socket.js";
 export const sendMessage=async(req,res)=>{
     try {
         const senderId=req.id;//logged in user
@@ -26,9 +28,17 @@ export const sendMessage=async(req,res)=>{
             gotConversation.messages.push(newMessage._id)
         }
 
-        await gotConversation.save();
+        // await gotConversation.save();
+        // await newMessage.save();
+        // to save both simuntaneosly use promise
+
+        await Promise.all([gotConversation.save(),newMessage,save()])
 
         //Socket IO
+        const receiverSocketId=getReceiverSocketId(receiverId);
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit("newMessage",newMessage);
+        }
 
         return res.status(201).json({
             newMessage

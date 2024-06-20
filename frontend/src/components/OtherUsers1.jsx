@@ -3,7 +3,7 @@ import OtherUser from './OtherUser';
 import useGetOtherUsers from '../hooks/useGetOtherUsers';
 import { useSelector } from 'react-redux';
 
-const OtherUsers =()=>{
+const OtherUsers1 =()=>{
     //my custom hook
     useGetOtherUsers();
     const {OtherUsers}=useSelector(store=>store.user);
@@ -23,4 +23,4 @@ const OtherUsers =()=>{
         
     )
 }
-export default OtherUsers;
+export default OtherUsers1;
